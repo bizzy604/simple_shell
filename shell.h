@@ -16,4 +16,5 @@
 int main(int argc, char *argv[], char **env);
 int Exec_(char **param, char **env);
 void Into_Hshell(char **env, char **argv);
+void removeSpaces(char *str);
 #endif
