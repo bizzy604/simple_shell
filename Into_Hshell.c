@@ -19,7 +19,7 @@ void Into_Hshell(char **env, char **argv)
 	Prompt_();
 	while ((qCharComm = getline(&Command, &sizebuffer, stdin)) != EOF)
 	{
-		if (_String_Comp(Command, "\n") != 0)
+		if (String_comp(Command, "\n") != 0)
 		{
 			InBuilt = built_in(Command, env, Statuss);
 			if (InBuilt == CHANGE_DIR)
@@ -67,7 +67,7 @@ void Execute_(char *Command, char **env)
 	char *forCommand;
 
 	forCommand = strdup(Command);
-	rmvSpaces(forCommand);
+	removeSpaces(forCommand);
 	if (_String_Length(forCommand) == 1)
 	{
 		free(forCommand);
@@ -78,7 +78,7 @@ void Execute_(char *Command, char **env)
 	parameter = parse_command(Command, " ");
 	if (parameter != NULL)
 	{
-		if (_String_Comp(parameter[0], "env") == 0)
+		if (String_comp(parameter[0], "env") == 0)
 		{
 			Print_Environment(env);
 			/*free(parameter); VALGRIND*/
