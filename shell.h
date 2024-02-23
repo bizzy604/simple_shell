@@ -26,4 +26,5 @@ int _String_Length(char *s);
 int _strncmp(char *s1, char *s2, int n);
 int Putchar_(char c);
 char **parse_command(char *command, char *separator);
+void Puts_(char *str);
 #endif
