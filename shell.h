@@ -25,4 +25,5 @@ int String_comp(char *s1, char *s2);
 int _String_Length(char *s);
 int _strncmp(char *s1, char *s2, int n);
 int Putchar_(char c);
+char **parse_command(char *command, char *separator);
 #endif
