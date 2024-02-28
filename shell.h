@@ -13,6 +13,10 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <limits.h>
+#define CHANGE_DIR 1
+#define EXIT_SHELL 2
+#define PERM_DENIED "Permission denied"
+#define NOT_FOUND "not found"
 int main(int argc, char *argv[], char **env);
 int Exec_(char **param, char **env);
 void Into_Hshell(char **env, char **argv);
@@ -27,4 +31,17 @@ int _strncmp(char *s1, char *s2, int n);
 int Putchar_(char c);
 char **parse_command(char *command, char *separator);
 void Puts_(char *str);
+void Errors(char *program, char *param, char *message, int Qexe);
+int IntegerToString(int x, char str[]);
+void RvsString(char *str, int len);
+int Atoi(char *s);
+void Print_Environment(char **env);
+void Prompt_(void);
+int Get_Path(char **param, char **env);
+int BuiltExit(char *TheCommandand, int status);
+int wait_(char **argv, char *command, int QExecutes);
+int BuiltExit(char *command, int status);
+int built_in(char *command, char **env, int status);
+char *Get_Environment(char *var, char **env);
+void Execute_(char *command, char **env);
 #endif

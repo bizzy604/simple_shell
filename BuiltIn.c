@@ -1,42 +1,51 @@
 #include "shell.h"
 /**
- * BuiltExit - Function to Evaluat Buitin Exit
- * @TheCommandand: input TheCommandand_line
- * @status: storing the status process
- * Return: we return 2 if EXIT DONE else on 0 NOT EXIT
+ * built_in - Evaluate Buitins
+ * @command:  line of command
+ * @env: var enviroments
+ * @status: status process
+ * Return: 1 CD DONE, 2 EXIT DONE, 0 NO ONE
+ * Authors - Carlos Garcia - Ivan Dario Lasso - Cohort 10 - Cali
  **/
-
-int BuiltExit(char *TheCommandand, int status)
+int built_in(char *command, char **env, int status)
 {
-	char *TheCommand;
-	char **StatusOfExit;
-	int CodeExit;
+	char **commandCD = NULL;
+	size_t DirSizeBuffer = 512;
+	static char *currDir;
+	static char currDirector[512];
+	static int CounterForAlloc;
 
-	TheCommand = _String_Dupl(TheCommandand);
-	rmvSpaces(TheCommand);
-
-	if (_String_Length(TheCommand) > 1)
-	{
-		if (_strncmp(TheCommand, "exit", 4) == 0)
+	if (_strncmp(command, "cd", 2) == 0)
+	{	commandCD = parse_command(command, " ");
+		if (_strncmp(commandCD[0], "cd", 2) == 0)
 		{
-			StatusOfExit = parse_command(TheCommandand, " ");
-			if (StatusOfExit[1] == NULL)
+			if ((commandCD[1] == NULL) || (_strncmp(commandCD[1], "-", 1) == 0))
 			{
-				CodeExit = status;
-				free(TheCommandand);
-				free(StatusOfExit);
-				free(TheCommand);
-				exit(CodeExit);
+				if (commandCD[1] == NULL)
+					commandCD[1] = Get_Environment("HOME", env);
+				else
+				{
+					if (_strncmp(commandCD[1], "-", 1) == 0)
+					{
+					if (chdir(currDirector))
+						perror("Error:<chdir>");
+					free(commandCD);
+					Prompt_();
+					return (1);
+					}
+				}
 			}
-			rmvSpaces(StatusOfExit[1]);
-			CodeExit = Atoi_(StatusOfExit[1]);
-			free(TheCommandand);
-			free(StatusOfExit);
-			free(TheCommand);
-			exit(CodeExit);
-			return (2);
+			currDir = getcwd(currDirector, DirSizeBuffer);
+			if (currDir == NULL)
+				perror("Error <getcwd>");
+			else
+				CounterForAlloc++;
+			if (chdir(commandCD[1]))
+				perror("Error:<chdir>");
 		}
-	}
-	free(TheCommand);
-return (0);
+		free(commandCD);
+		Prompt_();
+		return (1);
+	} /*CD LOGICAL*/
+return (BuiltExit(command, status));
 }

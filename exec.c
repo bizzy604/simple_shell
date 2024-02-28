@@ -20,9 +20,9 @@ int  Exec_(char **param, char **env)
 
 		for (i = 0; param[i] != NULL; i++)
 		{
-			rmvSpaces(param[i]);
+			removeSpaces(param[i]);
 		}
-		if (_String_Comp(param[i - 1], "") == 0)
+		if (String_comp(param[i - 1], "") == 0)
 			param[i - 1] = NULL;
 
 		Execute_ = execve(param[0], param, env);

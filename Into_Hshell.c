@@ -122,10 +122,10 @@ int wait_(char **argv, char *Command, int Qex)
 	{
 		passedCommand = parse_command(Command, " ");
 		if (WEXITSTATUS(Statuss) == 126)
-			_Errors(argv[0], passedCommand[0], PERM_DENIED, Qex);
+			Errors(argv[0], passedCommand[0], PERM_DENIED, Qex);
 
 		if (WEXITSTATUS(Statuss) == 127)
-			_Errors(argv[0], passedCommand[0], NOT_FOUND, Qex);
+			Errors(argv[0], passedCommand[0], NOT_FOUND, Qex);
 
 		/** for uknown errors **/
 		if (WEXITSTATUS(Statuss) != 127 &&
